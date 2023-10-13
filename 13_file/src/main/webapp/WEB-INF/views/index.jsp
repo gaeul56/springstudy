@@ -18,10 +18,30 @@
 		</div>
 		<div>
 			<button type="submit">업로드</button>
-			
 		</div>
 	</form>
   </div>
 
+<hr>
+
+  <div>
+		<div>
+			<input type="file" id="files" multiple>
+		</div>
+		<div>
+			<button type="button" id="btn_upload">업로드</button>
+		</div>
+		<script>
+			fnUpload();
+			function fuUpload(){
+				$('#btn_upload').click(function(){
+					// ajax 파일 첨부는 FormData 객체를 생성해서 data로 전달한다.
+					var formData = new FormData();
+					formData.append('files')
+				}
+			}
+			
+		</script>
+  </div>
 </body>
 </html>

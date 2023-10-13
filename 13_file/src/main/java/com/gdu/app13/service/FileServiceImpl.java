@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService {
 		List<MultipartFile> files = multipartRequest.getFiles("files");
 		
 		//순회
-		for(MultipartFile file : files) {
+		for(MultipartFile multipartFile : files) {
 			
 			//첨부 여부 확인
 			if(multipartFile != null && !multipartFile.isEmpty()) {

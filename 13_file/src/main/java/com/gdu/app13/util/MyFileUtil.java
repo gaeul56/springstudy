@@ -1,6 +1,5 @@
 package com.gdu.app13.util;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ public class MyFileUtil {
 	public String getPath() {
 	  /* /storage/yyyy/MM/dd */
 	  LocalDate today = LocalDate.now();
-	  return "/storage/" + 
+	  return "/Users/seoga-eul/storage/" + 
 			  today.getYear() + "/" + 
 			  String.format("%02d",today.getMonthValue())+ "/" +
 			  String.format("%02d", today.getDayOfMonth());
