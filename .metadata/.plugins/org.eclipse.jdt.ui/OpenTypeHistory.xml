@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=05_DI/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.gdu.app05.service{BoardService.java[BoardService" modifiers="513" timestamp="1696407172000"/>
+    <typeInfo handle="=06_DI_ex/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.gdu.app06.service{IBoardService.java[IBoardService" modifiers="513" timestamp="1696476149000"/>
+    <typeInfo handle="=09_jdbc_junit/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.gdu.app09.service{ContactService.java[ContactService" modifiers="513" timestamp="1696994926000"/>
+    <typeInfo handle="=10_SpringJdbc_aop/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.gdu.app10.service{ContactService.java[ContactService" modifiers="513" timestamp="1697029916000"/>
+    <typeInfo handle="=12_mybatis_scheduler_interceptor/\/Users\/seoga-eul\/.m2\/repository\/org\/springframework\/spring-webmvc\/5.3.3\/spring-webmvc-5.3.3.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-webmvc-5.3.3.jar=/=/javadoc_location=/jar:file:\/Users\/seoga-eul\/.m2\/repository\/org\/springframework\/spring-webmvc\/5.3.3\/spring-webmvc-5.3.3-javadoc.jar\!\/=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-webmvc=/=/maven.version=/5.3.3=/=/maven.scope=/compile=/&lt;org.springframework.web.servlet(HandlerInterceptor.class[HandlerInterceptor" modifiers="1537" timestamp="1695698682000"/>
+</typeInfoHistroy>

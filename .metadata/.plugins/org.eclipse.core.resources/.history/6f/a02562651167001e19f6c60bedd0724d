@@ -1,0 +1,10 @@
+
+package com.gdu.app09.service;
+
+import com.gdu.app09.dto.ContactDto;
+
+public interface ContactService {
+	public int addContact(ContactDto contactDto);
+	public int modifyContact(ContactDto contactDto);
+
+}

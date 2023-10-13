@@ -1,0 +1,7 @@
+package com.gdu.app12.Intercept;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+
+public class MyInterceptor implements HandlerInterceptor {
+
+}

@@ -1,0 +1,14 @@
+package com.spring.di;
+
+import com.spring.di.ui.ExamConsole;
+
+public class Program {
+	public static void main(String[] args) {
+		
+		Exam exam = new NewlecExam();
+		ExamConsole console = new GridExamConsole();
+		console.setExam(exam);
+		console.print();
+	}
+
+}
