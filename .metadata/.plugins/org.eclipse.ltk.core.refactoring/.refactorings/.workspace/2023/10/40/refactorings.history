@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Copy 0 packages to &apos;board&apos;&#x0A;- Destination element: &apos;board&apos;" description="Copy packages" flags="589830" fragments="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1696404130262" target="/05_DI/src/main/webapp/WEB-INF/views/board" version="1.0"/>&#x0A;<refactoring comment="Delete resource &apos;06_DI_ex&apos;" deleteContents="false" description="Delete resource &apos;06_DI_ex&apos;" element1="/06_DI_ex" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1696469855297"/>
-</session>

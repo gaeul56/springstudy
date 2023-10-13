@@ -1,5 +1,0 @@
-package com.gdu.app10.logback;
-
-public class MyLogbackLayout {
-
-}

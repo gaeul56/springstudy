@@ -1,5 +1,0 @@
-package com.gdu.app10.service;
-
-public interface ContactService {
-
-}

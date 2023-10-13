@@ -1,5 +1,0 @@
-package com.gdu.app13.service;
-
-public interface FileService {
-
-}
