@@ -17,6 +17,7 @@ public class MyFileUtil {
 			  today.getYear() + "/" + 
 			  String.format("%02d",today.getMonthValue())+ "/" +
 			  String.format("%02d", today.getDayOfMonth());
+	 //return "/storage/"+ DateTimeFormatter.ofPattern("yyy/MM/dd").format(today);
 	}
 	
 	//파일이 저장될 이름 반환하기
