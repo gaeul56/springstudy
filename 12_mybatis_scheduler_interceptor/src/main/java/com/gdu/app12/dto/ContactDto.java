@@ -11,7 +11,7 @@ public class ContactDto {
   private int contactNo;
   private String name;
   private String tel;
-  private String email;
+  private String email;     
   private String address;
   private String createdAt;
 }
