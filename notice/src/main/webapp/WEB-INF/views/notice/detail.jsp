@@ -12,7 +12,23 @@
 <body>
 
   <div>
-    <h3><a href="${contextPath}/notice/list.do">공지사항</a></h3>
+  <h1>공지 상세 화면</h1>
+  <h3>공지번호 : ${notice.noticeNo}</h3>
+  <h3>구분: ${notice.gubun == 1 ? '긴급' : '일반'}</h3>
+  <h3>제목: ${notice.title}</h3>
+  <h3>내용: ${notice.content}</h3>
+  </div>
+  
+  <div>
+  <form method="post" action="${contextPath}/notice/save.do">
+  	<select name="gubun">
+	  	<option value="2">일반</option>
+	  	<option value="1">긴급</option>
+	</select>
+	<input type="text" name="title">
+	<input type="text" name="content">
+	<button>작성 완료</button>
+  	</form>
   </div>
 
 </body>
