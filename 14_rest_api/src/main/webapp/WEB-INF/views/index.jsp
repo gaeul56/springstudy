@@ -37,20 +37,42 @@
       })
 	  })
   }
-  //전역변수 (모든 함수에서 사용할 수 있는 변수)
+  
+  // 전역변수 (모든 함수에서 사용할 수 있는 변수)
   var page = 1;
-  //회원 목록
+  
+  // 회원 목록
   function fnMemberList(){
 	  $.ajax({
-		  //요청
+		  // 요청
 		  type: 'get',
 		  url: '${contextPath}/members/page/' + page,
-		  //응답
+		  // 응답
 		  dataType: 'json',
 		  success: function(resData){
-			  console.log(resData);
+			  // 회원 목록을 테이블로 만들기
+			  $('#member_list').empty();
+			  $.each(resData.memberList, function(i, member){
+				  var tr = '<tr>';
+				  tr += '<td><input type="checkbox" class="chk_one" value="'+member.memberNo+'"></td>';
+				  tr += '<td>'+member.id+'</td>';
+				  tr += '<td>'+member.name+'</td>';
+				  tr += '<td>'+member.gender+'</td>';
+				  tr += '<td>'+member.address+'</td>';
+				  tr += '<td><button type="button" class="btn_detail" data-member_no="'+member.memberNo+'">조회</button></td>';
+				  tr += '</tr>';
+				  $('#member_list').append(tr);
+			  })
+			  // 페이징
+			  $('#paging').html(resData.paging);
 		  }
 	  })
+  }
+  
+  // 페이지를 바꿀때마다 호출되는 fnAjaxPaging 함수
+  function fnAjaxPaging(p){
+	  page = p;        // 페이지 번호를 바꾼다.
+	  fnMemberList();  // 새로운 목록을 가져온다.
   }
 
 </script>

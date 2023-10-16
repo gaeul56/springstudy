@@ -56,7 +56,7 @@ public class PageUtil {
     
     // 이전 블록
     if(beginPage == 1) {
-      sb.append("<span>이전</span>");
+      sb.append("<a>이전</a>");
     } else {
       sb.append("<a href=\"" + url + "?page=" + (beginPage - 1) + "\">이전</a>");
     }
@@ -64,7 +64,7 @@ public class PageUtil {
     // 페이지 번호
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        sb.append("<span>" + p + "</span>");
+        sb.append("<a>" + p + "</a>");
       } else {
         sb.append("<a href=\"" + url + "?page=" + p + "\">" + p + "</a>");
       }
@@ -72,9 +72,44 @@ public class PageUtil {
     
     // 다음 블록
     if(endPage == totalPage) {
-      sb.append("<span>다음</span>");
+      sb.append("<a>다음</a>");
     } else {
       sb.append("<a href=\"" + url + "?page=" + (endPage + 1) + "\">다음</a>");
+    }
+    
+    sb.append("</div>");
+    
+    return sb.toString();
+    
+  }
+
+  public String getAjaxPaging() {
+    
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append("<div>");
+    
+    // 이전 블록
+    if(beginPage == 1) {
+      sb.append("<a>이전</a>");
+    } else {
+      sb.append("<a href=\"javascript:fnAjaxPaging(" + (beginPage-1) + ")\">이전</a>");
+    }
+    
+    // 페이지 번호
+    for(int p = beginPage; p <= endPage; p++) {
+      if(p == page) {
+        sb.append("<a>" + p + "</a>");
+      } else {
+        sb.append("<a href=\"javascript:fnAjaxPaging(" + p + ")\">" + p + "</a>");
+      }
+    }
+    
+    // 다음 블록
+    if(endPage == totalPage) {
+      sb.append("<a>다음</a>");
+    } else {
+      sb.append("<a href=\"javascript:fnAjaxPaging(" + (endPage+1) + ")\">다음</a>");
     }
     
     sb.append("</div>");
