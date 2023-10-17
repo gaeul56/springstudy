@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     try {
       response.setContentType("text/plain");
       PrintWriter out = null;              
-    	
+    
     											 // $.ajax({})의 error 속성으로 응답됨
       response.setStatus(500);                   // 예외객체 jqXHR의 status 속성으로 확인함
       out.print("이미 사용 중인 아이디입니다."); // 예외객체 jqXHR의 responseText 속성으로 확인함

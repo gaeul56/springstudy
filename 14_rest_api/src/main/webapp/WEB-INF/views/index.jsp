@@ -216,7 +216,7 @@
         var arr = [];
          var chkOne = $('.chk_one');   // 체크된 회원들의 배열이므로 싹 다 긁어온다.
          $.each(chkOne, function(i, elem){
-           if($(emel).is(':checked')){       // if에서 많이 쓰는 건 'is' 이다.  ( $(elem).prop('checked') 방법도 있음 )
+           if($(elem).is(':checked')){       // if에서 많이 쓰는 건 'is' 이다.  ( $(elem).prop('checked') 방법도 있음 )
             arr.push($(elem).val());
            }
          })
