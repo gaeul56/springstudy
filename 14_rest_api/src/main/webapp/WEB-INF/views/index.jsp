@@ -24,6 +24,7 @@
 	  fnMemberDetail();
 	  fnMemberModify();
 	  fnRemoveMember();
+	  fnRemoveMembers();
   })
 
   // 전체 선택을 클릭하면 개별 선택에 영향을 미친다.
@@ -208,7 +209,29 @@
 		  })
 	  })
   }
-
+	//회원들의 정보 삭제
+ 	function fnRemoveMembers(){
+		$('#btn_remove_list').click(function(){
+			// 체크된 요소의 value를 배열 arr에 저장하기(push 메소드)\
+			var arr = [];
+			var chkOne = $('.chk_one');
+			$.each(chkOne, function(i, elem){
+				
+				if($(elem).is(':checked')){	//if $(elem).prop('chekced')
+					arr.push($(elem).val());	
+				}
+			})
+			//체크된 요소가 없으면 삭제 중지	
+			if(arr.length === 0){
+				alert('선택된 회원 정보가 없습니다. 다시 시도하세요');
+				return;
+			}
+			//선택된 회원 삭제
+			$.ajax({
+				
+			})
+		})
+	}
   </script>
 
 </head>
@@ -249,9 +272,7 @@
       <button type="button" id="btn_remove">삭제</button>
     </div>
   </div>
-
-  <hr>
-  
+  <hr>  
   <div>
   <div>
   	<button type="button" id="btn_remove_list">선택삭제</button>
