@@ -21,7 +21,7 @@ public interface MemberService {
   
   public Map<String, Object> removeMember(int memberNo);
   
-  
+  public Map<String, Object> removeMembers(String memberNoList);
   
   
 }

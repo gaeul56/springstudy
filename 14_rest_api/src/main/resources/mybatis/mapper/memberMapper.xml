@@ -51,4 +51,15 @@
   	  FROM MEMBER_T
   	 WHERE MEMBER_NO = #{memberNo}
   </delete>
+  <delete id="deleteMembers" parameterType="List">
+  	DELETE
+  	  FROM MEMBER_T
+     WHERE MEMBER_NO IN(4,3)
+  	<where>
+  		MEMBER_NO
+  	  <foreach collection="list" item="memberNo" open="(" close=")" separator=",">
+	  	  #{memberNo}
+  	  </foreach>
+  	</where>
+  </delete>
 </mapper>

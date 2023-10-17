@@ -193,7 +193,7 @@
 		  $.ajax({
 			  // 요청
 			  type: 'delete',
-			  url: '${contextPath}/members/' + $('#memberNo').val(),
+			  url: '${contextPath}/member/' + $('#memberNo').val(),
 			  // 응답
 			  dataType: 'json',
 			  success: function(resData){
@@ -209,29 +209,44 @@
 		  })
 	  })
   }
-	//회원들의 정보 삭제
- 	function fnRemoveMembers(){
-		$('#btn_remove_list').click(function(){
-			// 체크된 요소의 value를 배열 arr에 저장하기(push 메소드)\
-			var arr = [];
-			var chkOne = $('.chk_one');
-			$.each(chkOne, function(i, elem){
-				
-				if($(elem).is(':checked')){	//if $(elem).prop('chekced')
-					arr.push($(elem).val());	
-				}
-			})
-			//체크된 요소가 없으면 삭제 중지	
-			if(arr.length === 0){
-				alert('선택된 회원 정보가 없습니다. 다시 시도하세요');
-				return;
-			}
-			//선택된 회원 삭제
-			$.ajax({
-				
-			})
-		})
-	}
+  // 회원들의 정보 삭제
+  function fnRemoveMembers(){
+     $('#btn_remove_list').click(function(){
+          // 체크된 요소의 value를 배열 arr에 저장하기(push 메소드)   . *push 메소드는 자바스크립트 메소드이다.
+        var arr = [];
+         var chkOne = $('.chk_one');   // 체크된 회원들의 배열이므로 싹 다 긁어온다.
+         $.each(chkOne, function(i, elem){
+           if($(emel).is(':checked')){       // if에서 많이 쓰는 건 'is' 이다.  ( $(elem).prop('checked') 방법도 있음 )
+            arr.push($(elem).val());
+           }
+         })
+         console.log(arr.join(','));   // 배열의 요소들을 전부 꺼내서 문자열로 만들어 주는 것이 join인데 어떤 것으로 묶을 것인지가 (',') 이다. 쉼표로 묶음.
+         // 체크된 요소가 없으면 삭제 중지
+         if(arr.length === 0){
+           alert('선택된 회원 정보가 없습니다. 다시 시도하세요.');
+           return;
+         }
+         // 선택된 회원 삭제
+         $.ajax({
+            // 요청
+            type: 'delete',
+            url: '${contextPath}/members/' + arr.join(','),
+            // 응답
+            dataType: 'json',
+            success: function(resData){
+               if(resData.removeResult > 0){
+                  alert('선택한 회원 정보들이 삭제되었습니다.');
+                  // 1페이지로 돌아와서 초기화하기
+                  page = 1;
+                   fnMemberList();
+                   fnInit();
+               } else {
+                alert('선택한 회원 정보들이 삭제되지 않았습니다.');
+               }
+            }
+         })
+     })
+  }
   </script>
 
 </head>
