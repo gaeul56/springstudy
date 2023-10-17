@@ -253,6 +253,9 @@
   <hr>
   
   <div>
+  <div>
+  	<button type="button" id="btn_remove_list">선택삭제</button>
+  </div>
     <table border="1">
       <thead>
         <tr>
