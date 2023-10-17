@@ -46,7 +46,13 @@ public class NoticeController {
 	public String detail(@RequestParam int noticeNo, Model model) {
 		NoticeDto noticeDto = noticeService.getNotice(noticeNo);
 		model.addAttribute("notice", noticeDto); 
-		return "notice/detail"; //notice 폴더 아래 detail.jsp로 이
+		return "notice/detail"; //notice 폴더 아래 detail.jsp로 이동
+	}
+	@RequestMapping(value="/notice/modify.do", method=RequestMethod.POST) //select가 아니니깐 Post
+	public String modify(NoticeDto noticeDto, RedirectAttributes redirectAttributes) {
+		int modifyResult = noticeService.modifyNotice(noticeDto);
+		redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
+		return "redirect:/notice/detail.do?noticeNo=" + noticeDto.getNoticeNo();
 	}
 	
 }

@@ -14,11 +14,12 @@ public interface MemberService {
   // 회원 목록
   public Map<String, Object> getMembers(int page);
   
+  //회원 조회
+  public Map<String, Object> getMember(int memberNo);
   
+  public Map<String, Object> modifyMember(MemberDto memberDto);
   
-  
-  
-  
+  public Map<String, Object> removeMember(int memberNo);
   
   
   

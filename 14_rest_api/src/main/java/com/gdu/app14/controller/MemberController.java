@@ -37,7 +37,9 @@ public class MemberController {
   
   private final MemberService memberService;
 
-  // 회원 등록 요청
+  // 회원 등록을 처리하는 메소드
+  // @RequestBody 어노테이션을 사용하여 HTTP 요청 본문에서 MemberDto객체를 추출
+  // @RequestBody 어노테이션을 요청 본문을 자바 객체로 매핑하여 사용할 수 있게 함
   @RequestMapping(value="/members", method=RequestMethod.POST, produces="application/json")
   public Map<String, Object> registerMember(@RequestBody MemberDto memberDto, HttpServletResponse response) {
     return memberService.register(memberDto, response);
@@ -45,11 +47,35 @@ public class MemberController {
   
   // 회원 목록 요청
   // 경로에 포함되어 있는 변수 {p}는 @PathVariable을 이용해서 가져올 수 있다.
+  // @PathVariable 어노테이션을 사용하여 URL경로의 변수를 가져옴
+  // 'p'변수가 optional로 정의되어있어 값이 없을 경우 기본값으로 1을 사용
   @RequestMapping(value="/members/page/{p}", method=RequestMethod.GET, produces="application/json")
   public Map<String, Object> getMembers(@PathVariable(value="p", required=false) Optional<String> opt) {
     int page = Integer.parseInt(opt.orElse("1"));
     return memberService.getMembers(page);
   }
+  
+  // 회원 조회 요청
+  //@PathVariable 어노테이션을 사용하여 URL 경로의 변수를 가져옴
+  @RequestMapping(value="/members/{mNo}", method=RequestMethod.GET, produces="application/json")
+  public Map<String, Object> getMember(@PathVariable(value="mNo") int memberNo) {
+    return memberService.getMember(memberNo);
+  }
+  
+  // 회원 정보 수정 요청
+  //@RequestBody 어노테이션을 사용하여 HTTP 요청 본문에서 MemberDto 객체를 추출
+  @RequestMapping(value="/members", method=RequestMethod.PUT, produces="application/json")
+  public Map<String, Object> modifyMember(@RequestBody MemberDto memberDto) {
+    return memberService.modifyMember(memberDto);
+  }
+  
+  //회원 정보 삭제 요청
+  @RequestMapping(value="/members/{memberNo}", method=RequestMethod.DELETE, produces="application/json")
+  public Map<String, Object> removeMember(@PathVariable(value="memberNo") int memberNo){
+	  return memberService.removeMember(memberNo);
+  }
+  
+  
   
   
   

@@ -14,6 +14,10 @@ import lombok.RequiredArgsConstructor;
 public class NoticeServiceImpl implements NoticeService {
 
 	private final NoticeMapper noticeMapper;
+	@Override
+	public int modifyNotice(NoticeDto noticeDto) {
+		return noticeMapper.modifyNotice(noticeDto);
+	}
 	
 	@Override
 	public NoticeDto getNotice(int noticeNo) {
