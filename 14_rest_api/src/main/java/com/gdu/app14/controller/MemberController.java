@@ -54,9 +54,15 @@ public class MemberController {
     int page = Integer.parseInt(opt.orElse("1"));
     return memberService.getMembers(page);
   }
+  /*
+   *  @PathVariable은 URL경로에서 변수 값을 추출하는데 사용, 
+   * 주로 RESTful 웹 애플리케이션에서 클라이언트가 요청한 URL에서 경로 변수 값을 추출하는데 쓰임
+   */
+  
   
   // 회원 조회 요청
   //@PathVariable 어노테이션을 사용하여 URL 경로의 변수를 가져옴
+  
   @RequestMapping(value="/members/{mNo}", method=RequestMethod.GET, produces="application/json")
   public Map<String, Object> getMember(@PathVariable(value="mNo") int memberNo) {
     return memberService.getMember(memberNo);
@@ -80,7 +86,7 @@ public class MemberController {
   public Map<String, Object> removeMembers(@PathVariable(value="memberNoList") String memberNoList){
 	  return memberService.removeMembers(memberNoList);
   }
-  
+ 
   
   
   

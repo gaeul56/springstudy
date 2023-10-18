@@ -30,16 +30,17 @@ public class MemberServiceImpl implements MemberService {
     Map<String, Object> map = null;
     
     try {
-
+      // 데이터베이스에 새 회원을 등록하려 시도
       int addResult = memberMapper.insertMember(memberDto);
       map = Map.of("addResult", addResult);
     
     } catch(DuplicateKeyException e) {  // UNIQUE 칼럼에 중복 값이 전달된 경우에 발생함
        
     try {
-      response.setContentType("text/plain");
-      PrintWriter out = null;              
+    	
     
+      response.setContentType("text/plain");
+      PrintWriter out = null;             
     											 // $.ajax({})의 error 속성으로 응답됨
       response.setStatus(500);                   // 예외객체 jqXHR의 status 속성으로 확인함
       out.print("이미 사용 중인 아이디입니다."); // 예외객체 jqXHR의 responseText 속성으로 확인함
