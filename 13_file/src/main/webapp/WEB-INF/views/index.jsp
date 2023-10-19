@@ -156,6 +156,7 @@
   
   <div>
     <h3>CKEditor</h3>
+    <form method="post" action="${contextPath}/add.do"></form>
     <form>
       <div>
         <textarea id="contents"></textarea>

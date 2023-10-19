@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
@@ -26,7 +28,7 @@
     <div>
       <button type="button" id="btn_back">뒤로가기</button>
     </div>
-    <form method="post" action="${contextPath}/notice/modify.do">
+    <form id="frm_detail" method="post" action="${contextPath}/notice/modify.do">
       <select name="gubun" id="gubun">
         <option value="2">일반</option>
         <option value="1">긴급</option>
@@ -34,6 +36,7 @@
       <input type="text" name="title" id="title">
       <input type="text" name="content" id="content">
       <input type="hidden" name="noticeNo" id="noticeNo">
+      <button type="button" id="btn_delete">삭제하기</button>
       <button>편집완료</button>
     </form>
     <script>
@@ -45,6 +48,9 @@
   </div>
 
   <script>
+  $(function(){
+	    fnDeleteNotice();
+	  })
   
     // 초기 화면
     $('#a').show();
@@ -71,6 +77,15 @@
     	}
     }
     
+    // 공지사항 삭제
+   function fnDeleteNotice(){
+    	$('#btn_delete').click(function(){
+    		if(confirm('공지사항을 삭제할까요?')){
+    			$('#frm_detail').attr('action', '${contextPath}/notice/delete.do');
+ 				$('#frm_detail').submit();
+    		}
+    	})
+    }
   </script>
 
 </body>

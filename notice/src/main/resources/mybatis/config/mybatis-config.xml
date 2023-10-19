@@ -11,6 +11,7 @@
   </settings>
   
   <typeAliases>
-  <typeAlias alias="NoticeDto" type="com.gdu.app.dto.NoticeDto"/>
+    <typeAlias alias="NoticeDto" type="com.gdu.app.dto.NoticeDto"/>
   </typeAliases>
+
 </configuration>

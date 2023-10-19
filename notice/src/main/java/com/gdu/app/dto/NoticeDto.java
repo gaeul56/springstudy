@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class NoticeDto {
-	private int noticeNo;
-	private int gubun;
-	private String title;
-	private String content;
+  private int noticeNo;
+  private int gubun;
+  private String title;
+  private String content;
 }

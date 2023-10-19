@@ -136,9 +136,10 @@ public class FileServiceImpl implements FileService {
       e.printStackTrace();
     }
     
-    // CKEditor로 저장된 이미지를 확인할 수 있는 경로를 {"url": "http://localhost:8080/app13/..."} 방식으로 반환해야 함
-    return Map.of("url", contextPath + "," + path + "," + filesystemName);
     
+    // CKEditor로 저장된 이미지를 확인할 수 있는 경로를 {"url": "http://localhost:8080/app13/..."} 방식으로 반환해야 함
+    return Map.of("url", contextPath + "," + path + "," + filesystemName
+    			, "uploaded" , true);
   }
   
   

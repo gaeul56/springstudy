@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,41 +17,49 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class NoticeController {
-	
-	private final NoticeService noticeService;
-	
-	
-	@RequestMapping(value="/notice/list.do", method=RequestMethod.GET)
-	public String list(Model model) { // forward할 데이터는 Model에 저장한다.
-	  List<NoticeDto> noticeList = noticeService.getNoticeList();
-	  model.addAttribute("noticeList", noticeList); //forward할 데이터 저장하기(저장한 이름은 noticeList)
-	  return "notice/list"; // notice 폴더 아래의 list.jsp로 forward하시오.
-	}
-	
-	
-	@RequestMapping(value="/notice/write.do", method=RequestMethod.GET)
-	public String write() {
-		return "notice/write";
-	}
-	
-	@RequestMapping(value="/notice/save.do", method=RequestMethod.POST)
-	public String save(NoticeDto noticeDto, RedirectAttributes redirectAttributes) { //redirect 할 데이터는 RedirectAttributes에 저장한다.
-		int addResult = noticeService.addNotice(noticeDto);
-		redirectAttributes.addFlashAttribute("addResult", addResult); //끝까지 살아남아서 데이터 전달하는 addFlashAttribute
-		return "redirect:/notice/list.do";
-		
-	}
-	@RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
-	public String detail(@RequestParam int noticeNo, Model model) {
-		NoticeDto noticeDto = noticeService.getNotice(noticeNo);
-		model.addAttribute("notice", noticeDto); 
-		return "notice/detail"; //notice 폴더 아래 detail.jsp로 이동
-	}
-	@RequestMapping(value="/notice/modify.do", method=RequestMethod.POST) //select가 아니니깐 Post
-	public String modify(NoticeDto noticeDto, RedirectAttributes redirectAttributes) {
-		int modifyResult = noticeService.modifyNotice(noticeDto);
-		redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-		return "redirect:/notice/detail.do?noticeNo=" + noticeDto.getNoticeNo();
-	}
-	
+
+  private final NoticeService noticeService;
+  
+  @RequestMapping(value="/notice/save.do", method=RequestMethod.POST)
+  public String save(NoticeDto noticeDto
+                   , RedirectAttributes redirectAttributes) {
+    int addResult = noticeService.addNotice(noticeDto);
+    redirectAttributes.addFlashAttribute("addResult", addResult);
+    return "redirect:/notice/list.do";
+  }
+  
+  
+  @RequestMapping(value="/notice/list.do", method=RequestMethod.GET)
+  public String list(Model model) {
+    List<NoticeDto> noticeList = noticeService.getNoticeList();
+    model.addAttribute("noticeList", noticeList);
+    return "notice/list";
+  }
+  
+  @RequestMapping(value="/notice/write.do", method=RequestMethod.GET)
+  public String write() {
+    return "notice/write";
+  }
+  
+  @RequestMapping(value="/notice/modify.do", method=RequestMethod.POST)
+  public String modify(NoticeDto noticeDto
+                     , RedirectAttributes redirectAttributes) {
+    int modifyResult = noticeService.modifyNotice(noticeDto);
+    redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
+    return "redirect:/notice/detail.do?noticeNo=" + noticeDto.getNoticeNo();
+  }
+  
+  @RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
+  public String detail(@RequestParam int noticeNo, Model model) {
+    NoticeDto noticeDto = noticeService.getNotice(noticeNo);
+    model.addAttribute("notice", noticeDto);
+    return "notice/detail";
+  }
+  @RequestMapping(value="/notice/delete.do", method=RequestMethod.POST)
+  public String delete(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo, RedirectAttributes redirectAttributes) {
+	  int deleteResult = noticeService.deleteNotice(noticeNo);
+	  redirectAttributes.addFlashAttribute("deleteResult", deleteResult);
+	  return "redirect:/notice/list.do";
+  }
+  
 }
