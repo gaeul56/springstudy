@@ -59,4 +59,6 @@ public class ContactDao {
     return sqlSessionTemplate.selectOne("mybatis.mapper.contact.selectContactByNo", contactNo);
   }
   
+
+  
 }

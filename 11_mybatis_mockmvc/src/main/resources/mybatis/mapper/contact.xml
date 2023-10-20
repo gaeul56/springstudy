@@ -23,4 +23,5 @@
 	<select id="selectContactByNo" parameterType="int" resultType="ContactDto">
 	SELECT CONTACT_NO, NAME, TEL, EMAIL, ADDRESS, CREATED_AT FROM CONTACT_T WHERE CONTACT_NO = #{contactNo}
 	</select>
+	
 </mapper>

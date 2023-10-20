@@ -20,7 +20,8 @@
       <input type="password" name="pw" id="pw" placeholder="●●●●●●">
     </div>
     <div>
-      <button type="submit">로그인</button>
+	    <input type="hidden" name="referer" value="${referer}">
+	    <button type="submit">로그인</button>
     </div>
   </form>
   
