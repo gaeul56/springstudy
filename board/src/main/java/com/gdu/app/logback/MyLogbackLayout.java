@@ -1,4 +1,4 @@
-package com.gdu.myhome.logback;
+package com.gdu.app.logback;
 
 import java.text.SimpleDateFormat;
 
@@ -14,22 +14,16 @@ public class MyLogbackLayout extends LayoutBase<ILoggingEvent> {
     
     sb.append("[");
     sb.append(new SimpleDateFormat("HH:mm:ss").format(event.getTimeStamp()));
-    sb.append("]");
-    
+    sb.append("] ");
+    sb.append(String.format("%-5s", event.getLevel()));
+    sb.append(":");
     String loggerName = event.getLoggerName();
-
-    if(!loggerName.endsWith("RequestCheckAop")) {      
-      sb.append(String.format("%-5s", event.getLevel()));
-      sb.append(":");
-      sb.append(loggerName);
-    }
-    
+    sb.append(loggerName);
     if(loggerName.equals("jdbc.sqlonly")) {
-      sb.append("\n    ");
+      sb.append("\n");
     } else {
       sb.append(" - ");
     }
-    
     sb.append(event.getFormattedMessage());
     sb.append("\n");
     

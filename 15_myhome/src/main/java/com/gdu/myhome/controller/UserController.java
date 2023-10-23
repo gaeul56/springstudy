@@ -64,16 +64,24 @@ public class UserController {
   
   @GetMapping(value="/checkEmail.do", produces=MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
-    System.out.println(email);
     return userService.checkEmail(email);
   }
   
   @GetMapping(value="/sendCode.do", produces=MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Map<String, Object>> sendCode(@RequestParam String email){
-	  return userService.sendCode(email);
+  public ResponseEntity<Map<String, Object>> sendCode(@RequestParam String email) {
+    return userService.sendCode(email);
   }
   
+  @PostMapping("/join.do")
+  public void join(HttpServletRequest request, HttpServletResponse response) {
+    userService.join(request, response);
+  }
   
+  @PostMapping(value="/modify.do", produces=MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request){
+	  
+	  return userService.modify(request);
+  }
   
   
 }
