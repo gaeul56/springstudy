@@ -1,9 +1,11 @@
 package com.gdu.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,12 +50,12 @@ public class BoardController {
     model.addAttribute("board", boardDto);
     return "board/detail";
   }
-  
   @RequestMapping(value="/board/delete.do", method=RequestMethod.POST)
-  public String delete(@RequestParam int no, RedirectAttributes redirectAttributes) {
+  public String delete(@RequestParam(value="no", required=false, defaultValue="0") int no, RedirectAttributes redirectAttributes) {
 	  int deleteResult = boardService.deleteBoard(no);
 	  redirectAttributes.addFlashAttribute("deleteResult", deleteResult);
 	  return "redirect:/board/list.do";
   }
+  
   
 }

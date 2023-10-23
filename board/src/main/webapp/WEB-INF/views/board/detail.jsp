@@ -15,13 +15,10 @@
 	    fnListBoard();
 	  })
 
-	  
-	  
    // 게시글 삭제
    function fnDeleteBoard(){
     	$('#btn_delete').click(function(){
     		if(confirm('게시글을 삭제할까요?')){
-    			$('#frm_detail').attr('action', '${contextPath}/board/delete.do');
  				$('#frm_detail').submit();
     		}
     	})
@@ -32,7 +29,6 @@
 		})
   }
   </script>
-
 </head>
 <body>
   <div id="a">
@@ -44,7 +40,7 @@
     <h3>조회수 : ${board.hit}</h3>
     <h3>제목 : ${board.title}</h3>
     <h3>내용 : ${board.content}</h3>
-    <form id="frm_detail" method="post">
+    <form id="frm_detail" method="post" action="${contextPath}/board/delete.do">
     <button type="button" id="btn_delete">삭제하기</button>
     <button type="button" id="btn_list">목록보기</button>
     </form>

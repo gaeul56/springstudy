@@ -77,11 +77,29 @@ public class UserController {
     userService.join(request, response);
   }
   
-  @PostMapping(value="/modify.do", produces=MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request){
-	  
-	  return userService.modify(request);
+  @GetMapping("/mypage.form")
+  public String mypageForm() {
+    return "user/mypage";
   }
   
+  @PostMapping(value="/modify.do", produces=MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request) {
+    return userService.modify(request);
+  }
+  
+  @GetMapping("/modifyPw.form")
+  public String modifyPwForm() {
+    return "user/pw";
+  }
+  
+  @PostMapping("/modifyPw.do")
+  public void modifyPw(HttpServletRequest request, HttpServletResponse response) {
+    userService.modifyPw(request, response);
+  }
+  
+  @PostMapping("/leave.do")
+  public void leave(HttpServletRequest request, HttpServletResponse response) {
+    userService.leave(request, response);
+  }
   
 }
