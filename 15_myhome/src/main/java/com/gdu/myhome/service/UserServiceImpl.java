@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.myhome.dao.UserMapper;
+import com.gdu.myhome.dto.InactiveUserDto;
 import com.gdu.myhome.dto.UserDto;
 import com.gdu.myhome.util.MyJavaMailUtils;
 import com.gdu.myhome.util.MySecurityUtils;
@@ -30,13 +31,21 @@ public class UserServiceImpl implements UserService {
   private final MyJavaMailUtils myJavaMailUtils;
   
   @Override
-  public void login(HttpServletRequest request, HttpServletResponse response) {
+  public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
     
     String email = request.getParameter("email");
     String pw = mySecurityUtils.getSHA256(request.getParameter("pw"));
-    
+   
     Map<String, Object> map = Map.of("email", email
                                    , "pw", pw);
+    
+    HttpSession session = request.getSession();
+    InactiveUserDto inactiveUser = userMapper.getInactiveUser(map);
+    if(inactiveUser != null) {
+    	session.setAttribute("inactiveUser", inactiveUser);
+    	response.sendRedirect(request.getContextPath()+ "/user/active.form");
+       
+    }
     
     UserDto user = userMapper.getUser(map);
     
@@ -295,4 +304,36 @@ public class UserServiceImpl implements UserService {
     
   }
   
+  @Override
+  public void inactiveUserBatch() {
+	userMapper.insertInactiveUser();
+	userMapper.deleteUserForInactive();
+	}
+
+@Override
+  public void active(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		InactiveUserDto inactiveUser = (InactiveUserDto)session.getAttribute("inactiveUser");
+		String email = inactiveUser.getEmail();
+		
+		int insertActiveUserResult = userMapper.insertActiveUser(email);
+		int deleteInactiveUserResult = userMapper.deleteInactiveUser(email);
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			if(insertActiveUserResult == 1 && deleteInactiveUserResult == 1) {
+				out.println("alert('휴면계정이 복구되었습니다. 계정활성화를 위해 바로 로그인해 주세요.')");
+				out.println("location.href='"+request.getContextPath()+"/main.do'"); //로그인 페이지로 보내면 로그인 후 다시 휴면 계정 복구 페이지로 돌아오므로 main으로 이동한다.
+			} else {
+				out.println("alert('휴면계정이 복구실패했습니다. 다시 시도하세요')");
+				out.println("history.back"); //로그인 페이지로 보내면 로그인 후
+			}
+			out.println("</script>");
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
