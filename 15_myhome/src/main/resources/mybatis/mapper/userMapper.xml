@@ -34,7 +34,10 @@
   <select id="getInactiveUser" parameterType="Map" resultType="InactiveUserDto">
     SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT, INACTIVED_AT
       FROM INACTIVE_USER_T
-     WHERE EMAIL = #{email}
+    <where>
+      <if test="email != null">EMAIL = #{email}</if>
+      <if test="pw != null">AND PW = #{pw}</if>
+    </where>
   </select>
 
   <insert id="insertUser" parameterType="UserDto">
@@ -108,45 +111,37 @@
   </delete>
 
   <insert id="insertInactiveUser">
-  INSERT INTO INACTIVE_USER_T ( 
-  SELECT USER_NO, U.EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT, SYSDATE
-  		    FROM USER_T U LEFT OUTER JOIN ACCESS_T A 
-  		      ON U.EMAIL = A.EMAIL
- 		   WHERE MONTHS_BETWEEN(SYSDATE, LOGIN_AT) >= 12
-              OR (LOGIN_AT IS NULL AND MONTHS_BETWEEN(SYSDATE, JOINED_AT) >= 12)
-)
+    INSERT INTO INACTIVE_USER_T (
+      SELECT USER_NO, U.EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT, SYSDATE
+        FROM USER_T U LEFT OUTER JOIN ACCESS_T A
+          ON U.EMAIL = A.EMAIL
+       WHERE MONTHS_BETWEEN(SYSDATE, LOGIN_AT) >= 12
+          OR (LOGIN_AT IS NULL AND MONTHS_BETWEEN(SYSDATE, JOINED_AT) >= 12)
+    )
   </insert>
   
   <delete id="deleteUserForInactive">
-  DELETE
-    FROM USER_T
-   WHERE EMAIL IN(SELECT U.EMAIL
-                    FROM USER_T U LEFT OUTER JOIN ACCESS_T A
-                      ON U.EMAIL = A.EMAIL
-                   WHERE MONTHS_BETWEEN(SYSDATE, LOGIN_AT) >= 12
-                      OR (LOGIN_AT IS NULL AND MONTHS_BETWEEN(SYSDATE, JOINED_AT) >= 12))
+    DELETE
+      FROM USER_T
+     WHERE EMAIL IN(SELECT U.EMAIL
+                      FROM USER_T U LEFT OUTER JOIN ACCESS_T A
+                        ON U.EMAIL = A.EMAIL
+                     WHERE MONTHS_BETWEEN(SYSDATE, LOGIN_AT) >= 12
+                        OR (LOGIN_AT IS NULL AND MONTHS_BETWEEN(SYSDATE, JOINED_AT) >= 12))
   </delete>
 
-  <select id="getInactiveUser" parameterType="Map" resultType="InactiveUserDto">
-    SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT, INACTIVED_AT
-      FROM INACTIVE_USER_T
-    <where>
-      <if test="email != null">EMAIL = #{email}</if>
-      <if test="pw != null">AND PW = #{pw}</if>
-    </where>
-  </select>
-  <insert id="insertActiveUser" parameterType="String">
-  INSERT INTO USER_T (
-	   SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT
-	 	 FROM INACTIVE_USER_T
-		WHERE EMAIL = #{email})
-
-  
+  <insert id="insertActiveUser" parameterType="String">  
+    INSERT INTO USER_T (
+      SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE, PW_MODIFIED_AT, JOINED_AT
+        FROM INACTIVE_USER_T
+       WHERE EMAIL = #{email}
+    )
   </insert>
+
   <delete id="deleteInactiveUser" parameterType="String">
-  DELETE
-    FROM INACTIVE_USER_T
-   WHERE EMAIL = #{email}
+    DELETE
+      FROM INACTIVE_USER_T
+     WHERE EMAIL = #{email}  
   </delete>
 
 </mapper>

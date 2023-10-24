@@ -8,6 +8,7 @@
   margin: 0;
   font-family: 'Noto Sans KR', sans-serif;
   color: #121212;
+  position: relative;
 }
 
 a {
@@ -21,4 +22,21 @@ ul, ol {
 body {
   width: 1000px;
   margin: 0 auto;
+}
+
+.ul_menu {
+  display: flex;
+}
+.ul_menu li {
+  padding: 0 5px;
+}
+.ul_menu li + li {
+  border-left: 1px solid gray;
+}
+.center_wrap {
+  margin: 0 auto;
+}
+.right_wrap {
+  right: 0;
+  position: absolute;
 }
