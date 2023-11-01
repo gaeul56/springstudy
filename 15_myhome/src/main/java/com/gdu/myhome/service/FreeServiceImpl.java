@@ -1,5 +1,6 @@
 package com.gdu.myhome.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import com.gdu.myhome.util.MySecurityUtils;
 
 import lombok.RequiredArgsConstructor;
 
-@Transactional //댓글 삽입이랑 업데이트 동시에 진행하니깐 필요
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class FreeServiceImpl implements FreeService {
@@ -40,7 +41,8 @@ public class FreeServiceImpl implements FreeService {
     return freeMapper.insertFree(free);
     
   }
-  @Transactional(readOnly = true)
+
+  @Transactional(readOnly=true)
   @Override
   public void loadFreeList(HttpServletRequest request, Model model) {
     
@@ -64,53 +66,75 @@ public class FreeServiceImpl implements FreeService {
     
   }
   
- /*
-  * 댓글달기
-  * 
-  *		댓글 정보 (Editor, Contents)
-  *		원글 정보 (Depth, Group_no, Group_order)
-  *		
-  *		원글 DTO
-  *		기존댓글업데이트 (원글DTO)
-  *
-  *		댓글 DTO
-  *		댓글 삽입 (댓글DTO)
-  */
-  
+  @Override
+  public int addReply(HttpServletRequest request) {
+    
+    // 요청 파라미터(댓글 작성 화면에서 받아오는 정보들)
+    // 댓글 정보(EMAIL, CONTENTS)
+    // 원글 정보(DEPTH, GROUP_NO, GROUP_ORDER)
+    String email = request.getParameter("email");
+    String contents = request.getParameter("contents");
+    int depth = Integer.parseInt(request.getParameter("depth"));
+    int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+    int groupOrder = Integer.parseInt(request.getParameter("groupOrder"));
+    
+    // 원글DTO 
+    // 기존댓글업데이트(원글DTO)
+    FreeDto free = FreeDto.builder()
+                    .groupNo(groupNo)
+                    .groupOrder(groupOrder)
+                    .build();
+    freeMapper.updateGroupOrder(free);
+    
+    // 댓글DTO
+    // 댓글삽입(댓글DTO)
+    FreeDto reply = FreeDto.builder()
+                      .email(email)
+                      .contents(contents)
+                      .depth(depth + 1)
+                      .groupNo(groupNo)
+                      .groupOrder(groupOrder + 1)
+                      .build();
+    int addReplyResult = freeMapper.insertReply(reply);
+    
+    return addReplyResult;
+    
+  }
   
   @Override
-	public int addReply(HttpServletRequest request) {
-	  
-		// 요청 파라미터
-	  	// 댓글 정보(EMAIL, CONTENTS)
-	    // 원글 정보(DEPTH, GROUP_NO, GROUP_ORDER)
-	  String email = request.getParameter("email");
-	  String contents = request.getParameter("contents");
-	  int depth = Integer.parseInt(request.getParameter("depth"));
-	  int groupNo = Integer.parseInt(request.getParameter("groupNo"));
-	  int groupOrder = Integer.parseInt(request.getParameter("groupOrder"));
-	  
-	  	// 원글 DTO
-	  	// 기존댓글업데이트(원글 DTO)
-	  FreeDto free = FreeDto.builder()
-			  			.groupNo(groupNo)
-			  			.groupOrder(groupOrder)
-			  			.build();
-	  freeMapper.updateGroupOrder(free);
-	  
-	  	//댓글 DTO
-	  	//댓글삽입(댓글DTO)
-	  FreeDto reply = FreeDto.builder()
-			  			.email(email)
-			  			.contents(contents)
-			  			.depth(depth + 1) 
-			  			.groupNo(groupNo)
-			  			.groupOrder(groupOrder + 1)
-			  			.build();
-	  int addReplyResult = freeMapper.insertReply(reply);
-	  
-	  
-	  return 0;
-	}
+  public int removeFree(int freeNo) {
+    return freeMapper.deleteFree(freeNo);
+  }
+  @Transactional(readOnly = true)
+  @Override
+  public void loadSearchList(HttpServletRequest request, Model model) {
+  
+    String column = request.getParameter("column");
+    String query = request.getParameter("query");
+    
+    Map<String, Object> map = new HashMap<>();
+    map.put("column", column);
+    map.put("query", query);
+    
+    int total = freeMapper.getSearchCount(map);
+    
+    Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+    String strPage = opt.orElse("1");
+    int page = Integer.parseInt(strPage);
+    
+    int display = 10;
+    
+    myPageUtils.setPaging(page, total, display);
+    
+    map.put("begin", myPageUtils.getBegin());
+    map.put("end", myPageUtils.getEnd());
+    
+    List<FreeDto> freeList = freeMapper.getSearchList(map);
+    
+    model.addAttribute("freeList", freeList);
+    model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath() + "/free/search.do", "column=" + column + "&query=" + query));
+    model.addAttribute("beginNo", total - (page - 1) * display);
+    
+  }
   
 }

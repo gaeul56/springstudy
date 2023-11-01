@@ -48,5 +48,23 @@ public class BbsServiceImpl implements BbsService {
 		
 		
 	}
-
+	
+	@Override
+	public BbsDto getBbs(int bbsNo) {
+		BbsDto bbs = bbsMapper.getBbs(bbsNo);
+		return bbs;
+	}
+    
+	@Override
+    public int addBbs(BbsDto bbs) {
+    	return bbsMapper.insertBbs(bbs);
+    }
+	@Override
+	public int modifyBbs(BbsDto bbs) {
+		return bbsMapper.updateBbs(bbs);
+	}
+	@Override
+	public int deleteBbs(int bbsNo) {
+		return bbsMapper.removeBbs(bbsNo);
+	}
 }

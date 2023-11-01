@@ -4,16 +4,54 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gdu.bbs.dao.BbsMapper">
+
 	<select id="getBbsList" parameterType="Map" resultType="BbsDto"> 
 		SELECT BBS_NO, EDITOR, TITLE, CONTENTS, CREATED_AT, MODIFIED_AT
 	      FROM (SELECT ROW_NUMBER() OVER(ORDER BY BBS_NO DESC) AS RN, BBS_NO, EDITOR, TITLE, CONTENTS, CREATED_AT, MODIFIED_AT
 	      		  FROM BBS_T)
 	     WHERE RN BETWEEN #{begin} AND #{end}
 	</select>
+	
 	<!-- 목록 개수 (전달 없음, int 반환) -->
 	<select id="getBbsCount" resultType="int">
 		SELECT COUNT(*)
 		  FROM BBS_T
 	</select>
-
+	
+	<!-- 상세 보기(전달 int bbsNo, BbsDto 반환) -->
+	<select id="getBbs" parameterType="int" resultType="BbsDto">
+		SELECT BBS_NO, EDITOR, TITLE, CONTENTS, CREATED_AT, MODIFIED_AT
+		  FROM BBS_T
+		 WHERE BBS_NO = #{bbsNo}
+	</select>
+	
+	<!-- 삽입(전달 BbsDto bbs, int 반환(insert는 resultType은 작성안함 , mybatis의 약속임) -->
+	<insert id="insertBbs" parameterType="BbsDto">
+		INSERT INTO BBS_T(
+			 BBS_NO
+		   , EDITOR
+		   , TITLE
+		   , CONTENTS
+		   , CREATED_AT
+		   , MODIFIED_AT
+		) VALUES(	
+		     BBS_SEQ.NEXTVAL
+		   , #{editor}
+		   , #{title}
+		   , #{contents}
+		   , SYSDATE
+		   , NULL
+	    )		
+	</insert>	
+	<update id="updateBbs" parameterType="BbsDto">
+		UPDATE BBS_T
+			SET TITLE = #{title}
+			   , CONTENTS = #{contents}
+			   , MODIFIED_AT = SYSDATE
+		WHERE BBS_NO = #{bbsNo}
+	</update>
+	<delete id="removeBbs" parameterType="int">
+		DELETE FROM BBS_T
+		 WHERE BBS_NO = #{bbsNo} 
+	</delete>
 </mapper>

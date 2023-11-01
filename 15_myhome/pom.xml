@@ -7,7 +7,8 @@
 	<name>15_myhome</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-	<properties>
+
+  <properties>
     <java-version>11</java-version>
     <org.springframework-version>5.3.3</org.springframework-version>
     <org.aspectj-version>1.9.6</org.aspectj-version>
@@ -15,51 +16,68 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  
 
   <dependencies>
-  	  <!-- https://mvnrepository.com/artifact/org.json/json -->
-      <dependency>
-		<groupId>org.json</groupId>
-		<artifactId>json</artifactId>
-		<version>20231013</version>
-	  </dependency>
-	  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+  
+	  <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
 	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-context-support</artifactId>
-	    <version>5.3.3</version>
+	    <groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>0.4.20</version>
 	</dependency>
-	
-	<!--  이메일 전송 API -->
-	<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+  	<!-- HTML 분석기 -->
+	<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 	<dependency>
-	    <groupId>com.sun.mail</groupId>
-	    <artifactId>javax.mail</artifactId>
-	    <version>1.6.2</version>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>1.15.3</version>
 	</dependency>
 
-	  <!--Random String 생성(이메일 인증코드 생성) -->
-	  <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.12.0</version>
-	</dependency>
-  <!--  파일 첨부 commons-io + commons-fileupload -->
-  <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-	<dependency>
-	    <groupId>commons-io</groupId>
-	    <artifactId>commons-io</artifactId>
-	    <version>2.8.0</version>
-	</dependency>
-	  <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-	<dependency>
-	    <groupId>commons-fileupload</groupId>
-	    <artifactId>commons-fileupload</artifactId>
-	    <version>1.5</version>
-	</dependency>
-	
-	<!--  Aspect Oriented Programming(AOP) -->
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20231013</version>
+    </dependency>
+
+    <!-- Random String 생성(이메일 인증코드 생성) -->
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+
+    <!-- 이메일 전송 API (javax.mail + spring-context-support) -->
+    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+
+    <!-- 파일 첨부(commons-io + commons-fileupload) -->
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.8.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.5</version>
+    </dependency>
+
+    <!-- Aspect Oriented Programming(AOP) -->
     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
     <dependency>
       <groupId>org.aspectj</groupId>
@@ -72,7 +90,8 @@
       <artifactId>aspectjrt</artifactId>
       <version>${org.aspectj-version}</version>
     </dependency>
-	<!-- Logback + Query Log -->
+
+    <!-- Logback + Query Log -->
     <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -85,7 +104,8 @@
       <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
       <version>1.16</version>
     </dependency>
-	<!--  Test -->
+
+    <!-- Test -->
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -99,7 +119,8 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
-  	<!--  Java(Object, Map, List) <-> JSON -->
+  
+    <!-- Java(Object, Map, List) <-> JSON -->
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -128,24 +149,24 @@
       <version>${org.springframework-version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-<dependency>
-    <groupId>com.zaxxer</groupId>
-    <artifactId>HikariCP</artifactId>
-    <version>5.0.1</version>
-</dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>5.0.1</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-<dependency>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis</artifactId>
-    <version>3.5.13</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-<dependency>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis-spring</artifactId>
-    <version>2.0.7</version>
-</dependency>
-   
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.13</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+    
     <!-- Spring -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -164,14 +185,14 @@
       <artifactId>spring-webmvc</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
-        
+    
     <!-- @Inject -->
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>1</version>
     </dependency>
-        
+    
     <!-- Servlet -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -194,7 +215,7 @@
   </dependencies>
   
   <build>
-  <finalName>${artifactId}</finalName>
+    <finalName>${artifactId}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>

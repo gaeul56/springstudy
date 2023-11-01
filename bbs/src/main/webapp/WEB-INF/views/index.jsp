@@ -11,7 +11,7 @@
 </head>
   <div>
    <h3> Hello world </h3>
-   <h3><a href="${contextPath}/bbs/list.do">게시판</a></h3>
+   <h3><a href="${contextPath}/list.do">게시판</a></h3>
   </div>
 </body>
 </html>
