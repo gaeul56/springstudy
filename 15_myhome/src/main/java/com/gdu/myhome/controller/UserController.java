@@ -27,11 +27,6 @@ public class UserController {
   
   private final UserService userService;
   
-  @PostMapping("/login.do")
-  public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    userService.login(request, response);
-  }
-
   @GetMapping("/login.form")
   public String loginForm(HttpServletRequest request, Model model) throws Exception {
     // referer : 이전 주소가 저장되는 요청 Header 값
@@ -48,33 +43,33 @@ public class UserController {
     String accessToken = userService.getNaverLoginAccessToken(request);
     return "redirect:/user/naver/getProfile.do?accessToken=" + accessToken;
   }
+  
   @GetMapping("/naver/getProfile.do")
   public String getProfile(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
     // 네이버로그인-3
     UserDto naverProfile = userService.getNaverProfile(request.getParameter("accessToken"));
-    
-    // 네이버로그인 후속 작업(처음시도 : 간편가입, 이미 가입: 로그인)
+    // 네이버로그인 후속 작업(처음 시도 : 간편가입, 이미 가입 : 로그인)
     UserDto user = userService.getUser(naverProfile.getEmail());
     if(user == null) {
-    	model.addAttribute("naverProfile", naverProfile);
-    	return "user/naver_join";
+      // 네이버 간편가입 페이지로 이동
+      model.addAttribute("naverProfile", naverProfile);
+      return "user/naver_join";
     } else {
-    	
-    	//naverProfile로 로그인 처리하기
-    	userService.naverLogin(request, response, naverProfile);
-    	return "redirect:/main.do";
+      // naverProfile로 로그인 처리하기
+      userService.naverLogin(request, response, naverProfile);
+      return "redirect:/main.do";
     }
-  
   }
-
   
   @PostMapping("/naver/join.do")
   public void naverJoin(HttpServletRequest request, HttpServletResponse response) {
-	  userService.naverJoin(request, response);
+    userService.naverJoin(request, response);
   }
   
-  
-  
+  @PostMapping("/login.do")
+  public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    userService.login(request, response);
+  }
   
   @GetMapping("/logout.do")
   public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -99,7 +94,6 @@ public class UserController {
     }
     return rtn;
   }
-
   
   @GetMapping(value="/checkEmail.do", produces=MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {

@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class AttachDto {
-	private int attachNo;
-	private String path;
-	private String originalFilename;
-	private String filesystemName;
-	private int downloadCount;
-	private int hasThumbnail;
-	private int uploadNo;
-
+  private int attachNo;
+  private String path;
+  private String originalFilename;
+  private String filesystemName;
+  private int downloadCount;
+  private int hasThumbnail;
+  private int uploadNo;
 }

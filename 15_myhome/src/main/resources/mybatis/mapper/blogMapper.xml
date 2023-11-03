@@ -208,12 +208,5 @@
        SET STATUS = 0
      WHERE COMMENT_NO = #{commentNo}
   </update>
-
-
-
-
-
-
-
   
 </mapper>

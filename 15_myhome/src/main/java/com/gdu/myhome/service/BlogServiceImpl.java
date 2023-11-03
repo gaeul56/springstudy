@@ -121,6 +121,7 @@ public class BlogServiceImpl implements BlogService {
     
   }
   
+  @Transactional(readOnly=true)
   public void blogImageBatch() {
     
     // 1. 어제 작성된 블로그의 이미지 목록 (DB)
@@ -173,6 +174,7 @@ public class BlogServiceImpl implements BlogService {
     return blogMapper.updateHit(blogNo);
   }
   
+  @Transactional(readOnly=true)
   @Override
   public BlogDto getBlog(int blogNo) {
     return blogMapper.getBlog(blogNo);
@@ -224,6 +226,7 @@ public class BlogServiceImpl implements BlogService {
     
   }
 
+  @Transactional(readOnly=true)
   @Override
   public Map<String, Object> loadCommentList(HttpServletRequest request) {
 

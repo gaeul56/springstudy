@@ -105,7 +105,8 @@ public class FreeServiceImpl implements FreeService {
   public int removeFree(int freeNo) {
     return freeMapper.deleteFree(freeNo);
   }
-  @Transactional(readOnly = true)
+  
+  @Transactional(readOnly=true)
   @Override
   public void loadSearchList(HttpServletRequest request, Model model) {
   

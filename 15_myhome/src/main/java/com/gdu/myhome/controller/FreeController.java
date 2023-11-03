@@ -41,23 +41,22 @@ public class FreeController {
   
   @PostMapping("/addReply.do")
   public String addReply(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-	  int addReplyResult = freeService.addReply(request);
-	  redirectAttributes.addFlashAttribute("addReplyResult",addReplyResult);
-	  return "redirect:/free/list.do";
+    int addReplyResult = freeService.addReply(request);
+    redirectAttributes.addFlashAttribute("addReplyResult", addReplyResult);
+    return "redirect:/free/list.do";
   }
   
-  @PostMapping("/remove.do") 
+  @PostMapping("/remove.do")
   public String remove(@RequestParam(value="freeNo") int freeNo, RedirectAttributes redirectAttributes) {
-	  int removeResult = freeService.removeFree(freeNo);
-	  redirectAttributes.addFlashAttribute("removeResult", removeResult);
-	  return "redirect:/free/list.do";
+    int removeResult = freeService.removeFree(freeNo);
+    redirectAttributes.addFlashAttribute("removeResult", removeResult);
+    return "redirect:/free/list.do";
   }
   
   @GetMapping("/search.do")
   public String search(HttpServletRequest request, Model model) {
-	  freeService.loadSearchList(request, model);
-	  return "free/list";
+    freeService.loadSearchList(request, model);
+    return "free/list";
   }
-  
   
 }
