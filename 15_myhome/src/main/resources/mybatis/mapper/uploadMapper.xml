@@ -136,14 +136,4 @@
      WHERE UPLOAD_NO = #{uploadNo}
   </delete>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </mapper>
